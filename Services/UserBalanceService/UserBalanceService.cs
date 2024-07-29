@@ -16,23 +16,22 @@ namespace TopUpAPI.Services.UserBalanceService
 
         public async Task CreditUserBalanceAsync(string email, decimal amount)
         {
-            await _httpClient.PostAsJsonAsync($"userBalance/credit/{email}", amount);
+            await _httpClient.PostAsJsonAsync($"http://localhost:5195/api/UserBalance/credit/{email}", amount);
         }
 
         public async Task DebitUserBalanceAsync(string email, decimal amount)
         {
-            await _httpClient.PostAsJsonAsync($"userBalance/debit/{email}", amount);
+            await _httpClient.PostAsJsonAsync($"http://localhost:5195/api/UserBalance/debit/{email}", amount);
         }
 
         public async Task<decimal> GetUserBalanceByEmailAsync(string email)
         {
-            var response = await _httpClient.GetFromJsonAsync<UserBalanceResponse>($"userBalance/{email}");
-            return response?.Balance ?? 0m;
-        }
-
-        private class UserBalanceResponse
-        {
-            public decimal Balance { get; set; }
+            var response = await _httpClient.GetStringAsync($"http://localhost:5195/api/UserBalance/{email}");
+            if (decimal.TryParse(response, out var balance))
+            {
+                return balance;
+            }
+            return balance;
         }
     }
 }

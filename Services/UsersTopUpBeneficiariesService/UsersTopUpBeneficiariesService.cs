@@ -46,7 +46,7 @@ namespace TopUpAPI.Services.UsersTopUpBeneficiariesService
                 int utbId = await CheckTopUpAbility(user.Data, newUsersTopUpBeneficiaries, topUpAmount);
 
                 //#2 Debit
-                await _userBalanceService.DebitUserBalanceAsync(user.Data.Email, topUpAmount);
+                await _userBalanceService.DebitUserBalanceAsync(user.Data.Email, topUpAmount + 1);
 
                 AddTransactionDto transaction = new AddTransactionDto {
                     TopUpAmount = topUpAmount,
@@ -91,7 +91,7 @@ namespace TopUpAPI.Services.UsersTopUpBeneficiariesService
             }
 
             decimal userBalance = await _userBalanceService.GetUserBalanceByEmailAsync(user.Email);
-            
+
             if(usersTopUpBeneficiaries.Data != null){
                 int totalActiveBeneficiaries = usersTopUpBeneficiaries.Data.Where(utb => utb.IsActive).Sum(utb => 1);
                 

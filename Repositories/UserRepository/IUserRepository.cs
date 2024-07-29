@@ -6,5 +6,6 @@ namespace TopUpAPI.Repositories.UserRepository
     {
         Task<User> AddUser(User user);
         Task<User> GetUser(int id);
+        Task<User> GetUserByEmail(string email);
     }
 }

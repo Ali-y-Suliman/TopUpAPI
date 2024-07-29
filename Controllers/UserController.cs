@@ -29,5 +29,15 @@ namespace TopUpAPI.Controllers
             return Ok(response);
         }
 
+        [HttpGet("{email}")]
+        public async Task<ActionResult<ResponseModel<IEnumerable<GetTopUpOptionDto>>>> GetTopUpBeneficiaries(string email)
+        {
+            var response = await _userService.GetUserByEmailAsync(email);
+            if (!response.Success)
+            {
+                return BadRequest(response);
+            }
+            return Ok(response);
+        }
     }
 }

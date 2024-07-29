@@ -34,5 +34,15 @@ namespace TopUpAPI.Repositories.UserRepository
                 throw new Exception("Failed to add user");
             }
         }
+
+        public async Task<User> GetUserByEmail(string email)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(t => t.Email == email);
+            if(user != null){
+                return user;
+            } else {
+                throw new Exception("Failed to add user");
+            }
+        }
     }
 }

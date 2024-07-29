@@ -37,7 +37,7 @@ namespace TopUpAPI.Controllers
             {
                 return BadRequest(response);
             }
-            return Ok();
+            return Ok(response);
         }
 
     }

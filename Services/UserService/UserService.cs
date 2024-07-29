@@ -57,5 +57,25 @@ namespace TopUpAPI.Services.UserService
                 return errorRes;
             }
         }
+
+        public async Task<ResponseModel<User>> GetUserByEmailAsync(string email)
+        {
+            try
+            {
+                var user = await _userRepo.GetUserByEmail(email);
+                var successResponse = new ResponseModel<User>(
+                    true,
+                    200,
+                    user,
+                    "TopUpBeneficiary issued Successfully"
+                );
+                return successResponse;
+            }
+            catch (Exception ex)
+            {
+                var errorRes = new ResponseModel<User>(false, 400, null, ex.Message);
+                return errorRes;
+            }
+        }
     }
 }
