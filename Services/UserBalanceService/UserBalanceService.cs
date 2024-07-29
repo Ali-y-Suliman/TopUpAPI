@@ -7,26 +7,30 @@ namespace TopUpAPI.Services.UserBalanceService
 {
     public class UserBalanceService : IUserBalanceService
     {
-        private readonly HttpClient _httpClient;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public UserBalanceService(HttpClient httpClient)
+        public UserBalanceService(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClient;
+            _httpClientFactory = httpClientFactory;
         }
 
         public async Task CreditUserBalanceAsync(string email, decimal amount)
         {
-            await _httpClient.PostAsJsonAsync($"http://localhost:5195/api/UserBalance/credit/{email}", amount);
+            var client = _httpClientFactory.CreateClient("balanceBaseUrl");
+            await client.PostAsJsonAsync($"credit/{email}", amount);
         }
 
         public async Task DebitUserBalanceAsync(string email, decimal amount)
         {
-            await _httpClient.PostAsJsonAsync($"http://localhost:5195/api/UserBalance/debit/{email}", amount);
+            var client = _httpClientFactory.CreateClient("balanceBaseUrl");
+            await client.PostAsJsonAsync($"debit/{email}", amount);
         }
 
         public async Task<decimal> GetUserBalanceByEmailAsync(string email)
         {
-            var response = await _httpClient.GetStringAsync($"http://localhost:5195/api/UserBalance/{email}");
+            var client = _httpClientFactory.CreateClient("balanceBaseUrl");
+          
+            var response = await client.GetStringAsync($"{email}");
             if (decimal.TryParse(response, out var balance))
             {
                 return balance;

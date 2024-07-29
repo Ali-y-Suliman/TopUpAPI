@@ -23,7 +23,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddHttpClient<IUserBalanceService, UserBalanceService>("balanceBaseUrl" ,client => {
-    client.BaseAddress = new Uri("http://localhost:5195/api/UserBalance");
+    client.BaseAddress = new Uri("http://localhost:5195/api/UserBalance/");
 });
 
 builder.Services.AddCors(options =>
