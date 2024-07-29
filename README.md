@@ -3,27 +3,32 @@
 
 ## Installation and Setup:
 
-1- clone the repo
+1- clone the TopUpAPI repo
 ```bash
 git clone https://github.com/Ali-y-Suliman/TopUpAPI.git
 ```
 
-2- install dotnet ef:
+2- clone the UserBalance repo
+```bash
+git clone https://github.com/Ali-y-Suliman/UserBalance.git
+```
+
+3- install dotnet ef:
 ```bash
 dotnet tool install --global dotnet-ef
 ```
 
-3- run dotnet build:
+4- run dotnet build:
 ```bash
 dotnet build
 ```
 
-4- create the database:
+5- create the database:
 ```bash
 dotnet ef database update
 ```
 
-5- run the project:
+6- run the project:
 ```bash
 dotnet run
 ```
@@ -40,6 +45,8 @@ dotnet watch run
 TopUpAPI provides the following endpoints:
 
 * POST  /api/Users - Add a new user in the system.
+
+* GET  /api/Users/{email} - get user by email.
 
 * POST  /api/TopUpOption - Add a new TopUpOption in the system.
 
